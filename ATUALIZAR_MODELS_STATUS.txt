@@ -1,0 +1,6 @@
+# Após adicionar o campo 'status' ao model Imovel, rode os comandos abaixo para criar e aplicar as migrações:
+
+python manage.py makemigrations corretor
+python manage.py migrate corretor
+
+# Isso garantirá que o novo campo esteja disponível no banco de dados e no admin.

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Bem-vindo, {{ request.user.username }}!</h2>
+            <p class="lead">Gerencie seus imóveis, clientes e acompanhe suas vendas.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white"><i class="bi bi-house-door"></i> Meus Imóveis</div>
+                <div class="card-body p-2">
+                    <a href="{% url 'cadastrar_imovel' %}" class="btn btn-success mb-2"><i
+                            class="bi bi-plus-circle"></i> Cadastrar Novo Imóvel</a>
+                    <ul class="list-group">
+                        {% for imovel in imoveis %}
+                        <li class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ imovel.titulo }}</strong> - {{ imovel.localizacao }}<br>
+                                    <small>Condições de Pagamento: {{ imovel.condicoes_pagamento }}</small><br>
+                                    <small>Status do Imóvel:
+                                        <span class="badge bg-dark">{{ imovel.get_status_display }}</span>
+                                    </small><br>
+                                    <small>Status da Obra:
+                                        {% if imovel.status_obra %}
+                                        <span class="badge bg-info">
+                                            {{ imovel.status_obra.get_status_display }}
+                                            {% if imovel.status_obra.status == 'ENTREGUE' %} (100%)
+                                            {% else %} ({{ imovel.status_obra.porcentagem|default:'0' }}%)
+                                            {% endif %}
+                                        </span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">Não iniciado</span>
+                                        {% endif %}
+                                    </small>
+                                    <div class="progress mt-2" style="height: 18px;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                            role="progressbar"
+                                            style="width: {{ imovel.status_obra.porcentagem|default:0 }}%"
+                                            aria-valuenow="{{ imovel.status_obra.porcentagem|default:0 }}"
+                                            aria-valuemin="0" aria-valuemax="100">
+                                            {{ imovel.status_obra.porcentagem|default:0 }}%
+                                        </div>
+                                    </div>
+                                    {% if imovel.status_obra %}
+                                    <div class="mt-2">
+                                        <a href="{% url 'editar_status_obra' imovel.id %}"
+                                            class="btn btn-outline-warning btn-sm"><i class="bi bi-pencil"></i>
+                                            Atualizar Status da Obra</a>
+                                    </div>
+                                    {% else %}
+                                    <div class="mt-2">
+                                        <a href="{% url 'editar_status_obra' imovel.id %}"
+                                            class="btn btn-outline-success btn-sm"><i class="bi bi-plus-circle"></i>
+                                            Iniciar Status da Obra</a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <span>
+                                    <a href="{% url 'detalhe_imovel' imovel.id %}"
+                                        class="btn btn-outline-primary btn-sm">Ver detalhes</a>
+                                    <a href="{% url 'editar_imovel' imovel.id %}"
+                                        class="btn btn-outline-secondary btn-sm">Editar</a>
+                                </span>
+                            </div>
+                        </li>
+                        {% empty %}
+                        <li class="list-group-item">Você ainda não cadastrou imóveis.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white"><i class="bi bi-people"></i> Clientes Interessados</div>
+                <ul class="list-group list-group-flush">
+                    {% for cliente in clientes %}
+                    <li class="list-group-item">{{ cliente.user.username }} - {{ cliente.user.email }}</li>
+                    {% empty %}
+                    <li class="list-group-item">Nenhum cliente interessado no momento.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="card">
+                <div class="card-header bg-secondary text-white"><i class="bi bi-bar-chart"></i> Relatórios de Vendas
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for relatorio in relatorios %}
+                    <li class="list-group-item">{{ relatorio.data_geracao|date:'d/m/Y' }} - {{ relatorio.total_vendas }}
+                        vendas - R$ {{ relatorio.valor_total }}</li>
+                    {% empty %}
+                    <li class="list-group-item">Sem relatórios disponíveis.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
