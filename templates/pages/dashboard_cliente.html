@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h2 class="card-title">Bem-vindo, {{ request.user.username }}!</h2>
+            <p class="lead">Aqui você pode acompanhar seus imóveis, notificações e o andamento das obras.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white"><i class="bi bi-house-door"></i> Meus Imóveis de
+                    Interesse</div>
+                <ul class="list-group list-group-flush">
+                    {% for interesse in interesses %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ interesse.imovel.titulo }}</strong> - {{ interesse.imovel.localizacao }}
+                                <br>
+                                <small>Status da Obra:
+                                    {% if interesse.imovel.status_obra %}
+                                    <span class="badge bg-info">{{ interesse.imovel.status_obra.get_status_display
+                                        }} ({{ interesse.imovel.status_obra.porcentagem }}%)</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Não iniciado</span>
+                                    {% endif %}
+                                </small>
+                                <div class="progress mt-2" style="height: 18px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                        role="progressbar"
+                                        style="width: {% if interesse.imovel.status_obra %}{{ interesse.imovel.status_obra.porcentagem }}{% else %}0{% endif %}%"
+                                        aria-valuenow="{% if interesse.imovel.status_obra %}{{ interesse.imovel.status_obra.porcentagem }}{% else %}0{% endif %}"
+                                        aria-valuemin="0" aria-valuemax="100">
+                                        {% if interesse.imovel.status_obra %}{{ interesse.imovel.status_obra.porcentagem
+                                        }}%{% else %}0%{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'detalhe_imovel' interesse.imovel.id %}"
+                                class="btn btn-outline-primary btn-sm">Ver detalhes</a>
+                        </div>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">Você ainda não demonstrou interesse em nenhum imóvel.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-info text-white"><i class="bi bi-bell"></i> Notificações</div>
+                <ul class="list-group list-group-flush">
+                    {% for notificacao in notificacoes %}
+                    <li class="list-group-item">{{ notificacao.mensagem }} </br>
+                        {{notificacao.data_envio|date:'d/m/Y H:iA' }} </li>
+                    {% empty %}
+                    <li class="list-group-item">Sem notificações no momento.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

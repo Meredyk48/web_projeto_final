@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white"><i class="bi bi-pencil-square"></i> Editar Perfil</div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="telefone" name="telefone"
+                                value="{{ profile.telefone }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                                value="{{ profile.data_nascimento|date:'Y-m-d' }}">
+                        </div>
+                        {% if profile.role == 'CORRETOR' %}
+                        <div class="mb-3">
+                            <label for="creci" class="form-label">CRECI</label>
+                            <input type="text" class="form-control" id="creci" name="creci" value="{{ profile.creci }}">
+                        </div>
+                        {% endif %}
+                        {% if profile.role == 'CLIENTE' %}
+                        <div class="mb-3">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="endereco" name="endereco"
+                                value="{{ profile.endereco }}">
+                        </div>
+                        {% endif %}
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                            <a href="{% url 'perfil' %}" class="btn btn-secondary ms-2">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

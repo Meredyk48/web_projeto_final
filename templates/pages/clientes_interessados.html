@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            <i class="bi bi-people"></i> Clientes Interessados no Imóvel: {{ imovel.titulo }}
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for interesse in interesses %}
+                <li class="list-group-item">
+                    <strong>{{ interesse.cliente.user.username }}</strong> - Interesse em {{
+                    interesse.data_interesse|date:'d/m/Y H:i' }}
+                </li>
+                {% empty %}
+                <li class="list-group-item">Nenhum cliente demonstrou interesse neste imóvel ainda.</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'dashboard_corretor' %}" class="btn btn-secondary mt-3">Voltar</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

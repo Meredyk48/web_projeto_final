@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white"><i class="bi bi-plus-circle"></i> Cadastrar Novo Imóvel
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="id_status" class="form-label">Situação do Imóvel</label>
+                            {{ form.status }}
+                        </div>
+                        {{ form.titulo.label_tag }} {{ form.titulo }}
+                        {{ form.descricao.label_tag }} {{ form.descricao }}
+                        {{ form.tipo.label_tag }} {{ form.tipo }}
+                        {{ form.localizacao.label_tag }} {{ form.localizacao }}
+                        {{ form.preco.label_tag }} {{ form.preco }}
+                        {{ form.quartos.label_tag }} {{ form.quartos }}
+                        {{ form.banheiros.label_tag }} {{ form.banheiros }}
+                        {{ form.vagas.label_tag }} {{ form.vagas }}
+                        {{ form.area.label_tag }} {{ form.area }}
+                        {{ form.condicoes_pagamento.label_tag }} {{ form.condicoes_pagamento }}
+                        {{ form.foto.label_tag }} {{ form.foto }}
+                        <div class="form-check mb-3">
+                            {{ form.ativo }} {{ form.ativo.label_tag }}
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success me-2">Cadastrar</button>
+                            <a href="{% url 'dashboard_corretor' %}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
