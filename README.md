@@ -276,61 +276,7 @@ python manage.py test contas
 - Testes de modelos para validar relacionamentos e campos obrigatórios
 - Testes de views para funcionalidades críticas
 
-### Executar com Cobertura (opcional)
-```bash
-pip install coverage
-coverage run --source='.' manage.py test
-coverage report
-coverage html  # Gera relatório HTML
-```
-
 ---
-
-## Contribuição
-
-Contribuições são bem-vindas! Para contribuir com o projeto:
-
-### Como Contribuir
-1. **Fork** o repositório
-2. **Clone** seu fork localmente
-3. **Crie** uma branch para sua feature: `git checkout -b feature/nova-funcionalidade`
-4. **Implemente** suas mudanças
-5. **Teste** suas alterações: `python manage.py test`
-6. **Commit** suas mudanças: `git commit -m 'Adiciona nova funcionalidade'`
-7. **Push** para sua branch: `git push origin feature/nova-funcionalidade`
-8. **Abra** um Pull Request
-
-### Diretrizes de Contribuição
-- Mantenha o código limpo e bem documentado
-- Siga as convenções de nomenclatura do Django
-- Escreva testes para novas funcionalidades
-- Atualize a documentação quando necessário
-- Use mensagens de commit descritivas
-
-### Estrutura de Commits
-```
-tipo(escopo): descrição breve
-
-Descrição mais detalhada da mudança, se necessário.
-
-- Item específico alterado
-- Outro item relevante
-```
-
-Tipos de commit: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-
----
-
-## Licença
-
-Este projeto é acadêmico e pode ser adaptado livremente para fins educacionais.
-
-### Termos de Uso
-- ✅ Uso acadêmico e educacional
-- ✅ Modificação e redistribuição para aprendizado
-- ✅ Uso como base para projetos pessoais
-- ⚠️ Para uso comercial, considere implementar melhorias de segurança
-- ⚠️ Não inclui garantias de funcionamento em produção
 
 ### Créditos
 Desenvolvido como projeto final de curso em Django/Python para demonstrar conceitos de:
@@ -342,15 +288,4 @@ Desenvolvido como projeto final de curso em Django/Python para demonstrar concei
 
 ---
 
-## Suporte e Contato
-
-Para dúvidas, sugestões ou reportar problemas:
-- Abra uma **Issue** no GitHub
-- Consulte a **documentação do Django** para questões técnicas
-- Verifique os **testes** para entender o comportamento esperado
-
----
-
-**Última atualização:** Dezembro 2024  
-**Versão do Django:** 5.2  
-**Versão do Python:** 3.8+
+## Desenvolvido por [Bruno Meredyk](https://github.com/Meredyk48) e [Luiz Bernardi](https://github.com/luizbernardi)
